@@ -55,74 +55,54 @@ export const ResumeDownloadSection = (): JSX.Element => {
         <section
             ref={sectionRef}
             id="resume"
-            className={`w-full min-h-screen py-8 md:py-16 xl:py-24 relative px-4 md:px-8 lg:px-24 xl:px-48 flex items-center justify-center transition-all duration-700 ease-in-out ${animationClass}`}
+            className={`w-full min-h-screen py-8 md:py-16 xl:py-24 relative px-4 sm:px-6 lg:px-8 flex items-center justify-center transition-all duration-700 ease-in-out ${animationClass}`}
         >
-            <div className="relative w-full max-w-7xl xl:max-w-[1440px] mx-auto">
-                {/* Background effects */}
-                <div
-                    className="absolute w-[300px] md:w-[634px] h-[600px] md:h-[1309px] top-[-100px] md:top-[-198px] left-[100px] md:left-[392px] rotate-[-103deg] pointer-events-none overflow-hidden">
-                    <div
-                        className="absolute w-16 h-16 md:w-20 md:h-20 top-[11px] left-[11px] bg-[#3827ff] rounded-[40px] rotate-[70deg] blur-[61.55px]"/>
-                    <div
-                        className="absolute w-[100px] h-[100px] md:w-[218px] md:h-[218px] top-[500px] md:top-[1060px] left-[150px] md:left-[386px] bg-[#0077ff] rounded-[109px] rotate-[70deg] blur-[230.75px]"/>
-                </div>
+            <div className="relative w-full max-w-screen-xl mx-auto">
+                {/* Static Background effects */}
+                <div className="absolute top-[-100px] left-[50px] w-[150px] h-[150px] bg-[#3827ff] rounded-full blur-[100px] z-0" />
+                <div className="absolute bottom-[-100px] right-[100px] w-[200px] h-[200px] bg-[#0077ff] rounded-full blur-[160px] z-0" />
 
-                <h1 className="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl font-semibold text-center text-[#2A324B] mb-12">
-                    Looking to{" "}
-                    <span
-                        className="relative text-transparent bg-clip-text bg-gradient-to-r from-[#0077ff] to-[#3827ff]">
-            hire
-          </span>
-                    ?
+                <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-semibold text-center text-[#2A324B] mb-10 sm:mb-12 z-10 relative">
+                    Looking to <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0077ff] to-[#3827ff]">hire</span>?
                 </h1>
 
-                <Card
-                    className="w-full max-w-[522px] xl:max-w-[600px] min-h-[300px] md:h-[420px] xl:h-[480px] mx-auto rounded-[20px] bg-[linear-gradient(180deg,rgba(0,119,255,1)_0%,rgba(56,39,255,1)_100%)] border-none shadow-lg flex flex-col justify-center items-center text-center px-4 md:px-8">
-                    <div
-                        className="w-full max-w-[469px] [font-family:'Montserrat',Helvetica] font-normal text-white text-sm md:text-lg xl:text-xl">
-                        <span>Feel free to </span>
-                        <span className="font-medium">download</span>
-                        <span> my resume below to get a closer look at my work history and skill set.</span>
+                <Card className="w-full max-w-xl sm:max-w-2xl lg:max-w-3xl mx-auto rounded-2xl bg-gradient-to-b from-[#0077ff] to-[#3827ff] shadow-lg flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 z-10 relative">
+                    <div className="font-poppins text-white text-sm sm:text-base md:text-lg">
+                        Feel free to <span className="font-medium">download</span> my resume below to get a closer look at my work history and skill set.
                     </div>
 
-                    <Separator className="w-[200px] md:w-[242px] xl:w-[280px] h-px my-6 bg-white"/>
+                    <Separator className="w-3/4 h-px my-6 bg-white" />
 
-                    <div
-                        className="w-full max-w-[469px] [font-family:'Montserrat',Helvetica] font-normal text-white text-sm md:text-lg xl:text-xl">
-                        <span>If you have any questions, collaborations in mind, or just want to connect, don&apos;t hesitate to </span>
-                        <span className="font-medium">send</span>
-                        <span> me a message!</span>
+                    <div className="font-poppins text-white text-sm sm:text-base md:text-lg">
+                        If you have any questions, collaborations in mind, or just want to connect, don't hesitate to <span className="font-medium">send</span> me a message!
                     </div>
 
-                    <div
-                        className="mt-6 md:mt-8 xl:mt-10 w-full flex flex-col md:flex-row justify-center gap-3 md:gap-4 xl:gap-6">
-                      {/* Download CV Button */}
-                      <Button
-                          onClick={handleDownload}
-                          className="group w-full md:w-[216px] xl:w-[240px] h-[60px] md:h-[70px] xl:h-[80px] rounded-[18px] border-2 border-white bg-white text-[#2A324B] hover:bg-gradient-to-r hover:from-[#0077ff] hover:to-[#3827ff] hover:text-white transition-all duration-300 ease-in-out flex items-center justify-center"
-                      >
-                        <DownloadIcon
-                            className="w-7 h-7 md:w-8 md:h-8 xl:w-9 xl:h-9 transition-colors duration-300 group-hover:text-white"
-                            strokeWidth={2.2}
-                        />
-                        <span className="ml-3 text-base md:text-lg xl:text-xl font-semibold transition-colors duration-300 group-hover:text-white">
-                          Download CV
-                        </span>
-                      </Button>
+                    <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4 w-full">
+                        <Button
+                            onClick={handleDownload}
+                            className="group w-full sm:w-auto px-6 h-14 rounded-xl border-2 border-white bg-white text-[#2A324B] hover:bg-gradient-to-r hover:from-[#0077ff] hover:to-[#3827ff] hover:text-white transition-all duration-300 flex items-center justify-center"
+                        >
+                            <DownloadIcon
+                                className="w-7 h-7 sm:w-8 sm:h-8 transition-colors duration-300 group-hover:text-white"
+                                strokeWidth={2.2}
+                            />
+                            <span className="ml-3 font-semibold text-base sm:text-lg">
+                                Download CV
+                            </span>
+                        </Button>
 
-                      {/* Contact Me Button */}
-                      <Button
-                          onClick={scrollToContact}
-                          className="group w-full md:w-[216px] xl:w-[240px] h-[60px] md:h-[70px] xl:h-[80px] rounded-[18px] border-2 border-white bg-transparent text-white hover:bg-gradient-to-r hover:from-[#0077ff] hover:to-[#3827ff] transition-all duration-300 ease-in-out flex items-center justify-center"
-                      >
-                        <MessageSquareIcon
-                            className="w-7 h-7 md:w-8 md:h-8 xl:w-9 xl:h-9 transition-transform duration-300 group-hover:scale-110"
-                            strokeWidth={2.2}
-                        />
-                        <span className="ml-3 text-base md:text-lg xl:text-xl font-semibold transition-opacity duration-300">
-                          Contact Me
-                        </span>
-                      </Button>
+                        <Button
+                            onClick={scrollToContact}
+                            className="group w-full sm:w-auto px-6 h-14 rounded-xl border-2 border-white bg-transparent text-white hover:bg-gradient-to-r hover:from-[#0077ff] hover:to-[#3827ff] transition-all duration-300 flex items-center justify-center"
+                        >
+                            <MessageSquareIcon
+                                className="w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-300 group-hover:scale-110"
+                                strokeWidth={2.2}
+                            />
+                            <span className="ml-3 font-semibold text-base sm:text-lg">
+                                Contact Me
+                            </span>
+                        </Button>
                     </div>
                 </Card>
             </div>
