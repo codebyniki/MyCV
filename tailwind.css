@@ -63,6 +63,11 @@
   html {
     scroll-behavior: smooth;
   }
+
+  ::selection {
+    background: rgba(0, 119, 255, 0.6);
+    color: #fff;
+  }
 }
 
 @layer components {
