@@ -74,7 +74,7 @@ export const ProjectsGallerySection = (): JSX.Element => {
                       className="bg-gradient-to-r from-[#0077ff] to-[#3827ff] bg-clip-text text-transparent font-semibold text-sm md:text-base hover:opacity-80 transition-opacity"
                   >
                     <a
-                        href="https://github.com/nikiorihatza"
+                        href="https://github.com/codebyniki"
                         target="_blank"
                         rel="noopener noreferrer"
                     >

@@ -22,7 +22,7 @@ export const AboutMeSection = (): JSX.Element => {
     {
       name: "GitHub",
       icon: <Github className="w-4 h-4 group-hover:text-white text-[#2a324b]" />,
-      url: "https://github.com/nikiorihatza",
+      url: "https://github.com/codebyniki",
     },
     {
       name: "Instagram",
@@ -51,7 +51,7 @@ export const AboutMeSection = (): JSX.Element => {
       <section
           ref={ref}
           id="about"
-          className="relative flex items-center w-full min-h-screen scroll-mt-[100px] py-12 md:py-20 px-4 md:px-8 xl:px-24 2xl:px-32"
+          className="relative flex items-center w-full min-h-screen scroll-mt-[120px] py-12 md:py-20 px-4 md:px-8 xl:px-24 2xl:px-32"
       >
         <motion.div
             initial={{ opacity: 0 }}
