@@ -3,6 +3,7 @@ import { useInView } from "react-intersection-observer";
 import { Download, FileText, Award, Briefcase } from "lucide-react";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
+import React from "react";
 
 export const ResumeDownloadSection = (): JSX.Element => {
     const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: false });
@@ -115,21 +116,35 @@ export const ResumeDownloadSection = (): JSX.Element => {
                                     variants={itemVariants}
                                     custom={index}
                                 >
-                                    <Card className="p-6 hover:shadow-lg transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm hover:bg-white/90">
-                                        <CardContent className="p-0 flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#0077ff] to-[#3827ff] flex items-center justify-center text-white">
-                                                {highlight.icon}
-                                            </div>
-                                            <div>
-                                                <h3 className="text-lg font-semibold text-[#2a324b] font-poppins mb-1">
-                                                    {highlight.title}
-                                                </h3>
-                                                <p className="text-sm text-[#2a324b]/70 font-poppins">
-                                                    {highlight.description}
-                                                </p>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
+                                    <motion.div
+                                        whileHover={{ scale: 1.03 }}
+                                        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                                        className="relative group rounded-[20px] overflow-hidden"
+                                    >
+                                        {/* Glow background that appears only on hover */}
+                                        <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                            <div className="absolute inset-0 bg-gradient-to-r from-[#0077ff] to-[#3827ff] blur-2xl opacity-30 scale-105" />
+                                        </div>
+
+                                        {/* Card Content */}
+                                        <div className="relative z-10">
+                                            <Card className="border-0 bg-white backdrop-blur-md transition-all duration-300 group-hover:shadow-xl rounded-[20px]">
+                                                <CardContent className="p-6 flex items-center gap-4">
+                                                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#0077ff] to-[#3827ff] flex items-center justify-center text-white">
+                                                        {highlight.icon}
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="text-lg font-semibold text-[#2a324b] font-poppins mb-1">
+                                                            {highlight.title}
+                                                        </h3>
+                                                        <p className="text-sm text-[#2a324b]/70 font-poppins">
+                                                            {highlight.description}
+                                                        </p>
+                                                    </div>
+                                                </CardContent>
+                                            </Card>
+                                        </div>
+                                    </motion.div>
                                 </motion.div>
                             ))}
                         </div>

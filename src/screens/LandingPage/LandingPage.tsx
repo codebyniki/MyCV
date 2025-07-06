@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { HeartIcon } from "lucide-react";
-import { AboutMeSection } from "../LandingPage/sections/AboutMeSection";
-import { ContactFormSection } from "../LandingPage/sections/ContactFormSection";
-import { HeroSection } from "../LandingPage/sections/HeroSection";
-import { ProjectsGallerySection } from "../LandingPage/sections/ProjectsGallerySection";
-import { ResumeDownloadSection } from "../LandingPage/sections/ResumeDownloadSection";
-import { SkillsOverviewSection } from "../LandingPage/sections/SkillsOverviewSection";
+import { AboutMeSection } from "./sections/AboutMeSection";
+import { ContactFormSection } from "./sections/ContactFormSection";
+import { HeroSection } from "./sections/HeroSection";
+import { ProjectsGallerySection } from "./sections/ProjectsGallerySection";
+import { ResumeDownloadSection } from "./sections/ResumeDownloadSection";
+import { SkillsOverviewSection } from "./sections/SkillsOverviewSection";
 import { ImprintPage } from "../ImprintPage/ImprintPage.tsx";
 import { Separator } from "../../components/ui/separator";
 import { ScrollToTopButton } from "../../components/ScrollToTopButton";
@@ -29,7 +29,8 @@ export const LandingPage = (): JSX.Element => {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      const yOffset = -100;
+      console.log("Scrolling to section...");
+      const yOffset = -80; // Reduced offset for mobile
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
       setIsMobileMenuOpen(false);
@@ -38,6 +39,7 @@ export const LandingPage = (): JSX.Element => {
 
   useEffect(() => {
     const handleScroll = () => {
+      console.log("Handling Scroll...");
       setScrolled(window.scrollY > 10);
       let closestSection = "";
       let minDistance = Infinity;
@@ -63,6 +65,32 @@ export const LandingPage = (): JSX.Element => {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (isMobileMenuOpen && !target.closest('nav')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   if (showImprint) {
     return <ImprintPage onBack={() => setShowImprint(false)} />;
@@ -111,7 +139,7 @@ export const LandingPage = (): JSX.Element => {
                     : "bg-transparent"
             }`}
         >
-          <nav className="flex justify-between items-center px-4 md:px-8 lg:px-[94px] py-4 md:py-6 max-w-[1440px] mx-auto">
+          <nav className="flex justify-between items-center px-4 md:px-8 lg:px-[94px] py-3 md:py-6 max-w-[1440px] mx-auto relative">
             <div className="hidden md:flex items-center gap-8 mx-auto">
               {sections.map((item, index) => (
                   <motion.button
@@ -146,8 +174,11 @@ export const LandingPage = (): JSX.Element => {
 
             <div className="md:hidden ml-auto">
               <motion.button
-                  className="flex flex-col items-end gap-1 p-2 group"
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="flex flex-col items-end gap-1 p-2 group relative z-[60]"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsMobileMenuOpen(!isMobileMenuOpen);
+                  }}
                   aria-label="Toggle menu"
                   whileTap={{ scale: 0.95 }}
               >
@@ -165,48 +196,61 @@ export const LandingPage = (): JSX.Element => {
 
           <AnimatePresence>
             {isMobileMenuOpen && (
-                <motion.div
-                    initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="absolute top-full left-1/2 transform -translate-x-1/2 w-full max-w-[95%] px-4 py-5 z-40 rounded-b-2xl bg-white/90 backdrop-blur-xl shadow-2xl"
-                >
-                  <div className="flex flex-col space-y-5 text-center">
-                    {sections.map((item, index) => (
-                        <motion.button
-                            key={item.id}
-                            onClick={() => scrollToSection(item.id)}
-                            className={`text-base font-semibold transition-all duration-300 ${
-                                activeSection === item.id ? "text-[#3827FF]" : "text-[#2a324b]"
-                            } hover:text-[#0077ff]`}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.1 }}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                          {item.label}
-                        </motion.button>
-                    ))}
-                    <motion.button
-                        onClick={() => scrollToSection("contact")}
-                        className="mt-4 block w-full text-center rounded-md bg-gradient-to-r from-[#0077ff] to-[#3827ff] text-white text-sm font-semibold py-3 shadow-md transition-all duration-300 hover:opacity-90 hover:scale-105"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                      Hire me
-                    </motion.button>
-                  </div>
-                </motion.div>
+                <>
+                  {/* Backdrop */}
+                  <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                  />
+
+                  {/* Mobile Menu */}
+                  <motion.div
+                      initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="absolute top-full left-0 right-0 mx-4 mt-2 z-50 rounded-2xl bg-white/95 backdrop-blur-xl shadow-2xl border border-gray-100"
+                      onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex flex-col space-y-1 p-6">
+                      {sections.map((item, index) => (
+                          <motion.button
+                              key={item.id}
+                              onClick={() => scrollToSection(item.id)}
+                              className={`text-base font-semibold transition-all duration-300 py-3 px-4 rounded-lg ${
+                                  activeSection === item.id ? "text-[#3827FF] bg-blue-50" : "text-[#2a324b]"
+                              } hover:text-[#0077ff] hover:bg-gray-50`}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.1 }}
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                          >
+                            {item.label}
+                          </motion.button>
+                      ))}
+                      <motion.button
+                          onClick={() => scrollToSection("contact")}
+                          className="mt-4 w-full text-center rounded-lg bg-gradient-to-r from-[#0077ff] to-[#3827ff] text-white text-sm font-semibold py-3 shadow-md transition-all duration-300 hover:opacity-90 hover:scale-105"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.6 }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                      >
+                        Hire me
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                </>
             )}
           </AnimatePresence>
         </motion.header>
 
-        <main className="flex flex-col w-full pt-[100px] relative">
+        <main className="flex flex-col w-full pt-[80px] md:pt-[100px] relative">
           <HeroSection />
           <AboutMeSection />
           <ProjectsGallerySection />

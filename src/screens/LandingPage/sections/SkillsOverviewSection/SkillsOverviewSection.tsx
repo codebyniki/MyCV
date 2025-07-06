@@ -12,7 +12,8 @@ export const SkillsOverviewSection = (): JSX.Element => {
           setIsVisible(entry.isIntersecting);
         },
         {
-          threshold: 0.3,
+          threshold: 0.1, // Lower threshold triggers earlier
+          rootMargin: "0px 0px -20% 0px", // Start observing when top 80% is visible
         }
     );
 
@@ -48,7 +49,7 @@ export const SkillsOverviewSection = (): JSX.Element => {
       id: "frontend",
       title: "FRONTEND",
       items: [
-        { name: "React", icon: "/image-2.png" },
+        { name: "React", icon: "/react.png" },
         { name: "TypeScript", icon: "/image-3.png" },
       ],
     },
@@ -88,14 +89,15 @@ export const SkillsOverviewSection = (): JSX.Element => {
   ];
 
   return (
-      <section
+      <motion.section
           ref={sectionRef}
-          className={`w-full min-h-screen py-8 md:py-12 scroll-mt-[120px] bg-gradient-to-b from-[#0077FF] to-[#3827FF] flex items-center transition-all duration-1000 ease-in-out relative overflow-hidden ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
           id="skills"
+          className="w-full min-h-screen py-8 md:py-12 scroll-mt-[120px] bg-gradient-to-b from-[#0077FF] to-[#3827FF] flex items-center transition-all duration-1000 ease-in-out relative overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        {/* Subtle Background Elements */}
+      {/* Subtle Background Elements */}
         <motion.div
             className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-3xl"
             animate={{
@@ -514,6 +516,6 @@ export const SkillsOverviewSection = (): JSX.Element => {
             </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
   );
 };
