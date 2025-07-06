@@ -1,6 +1,12 @@
 import { useState, useRef } from "react";
 import emailjs from "emailjs-com";
-import { InstagramIcon, MailIcon, PhoneIcon } from "lucide-react";
+import {
+  InstagramIcon,
+  MailIcon,
+  PhoneIcon,
+  Linkedin,
+  Github,
+} from "lucide-react";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Input } from "../../../../components/ui/input";
@@ -49,9 +55,31 @@ export const ContactFormSection = (): JSX.Element => {
   };
 
   const socialIcons = [
-    { icon: <PhoneIcon className="w-[15px] h-[15px]" />, alt: "Phone" },
-    { icon: <MailIcon className="w-[18px] h-[15px]" />, alt: "Email" },
-    { icon: <InstagramIcon className="w-[15px] h-[15px]" />, alt: "Instagram" },
+    {
+      name: "Phone",
+      icon: <PhoneIcon className="w-4 h-4 group-hover:text-white text-[#2a324b]" />,
+      url: "tel:+436506915284",
+    },
+    {
+      name: "Email",
+      icon: <MailIcon className="w-4 h-4 group-hover:text-white text-[#2a324b]" />,
+      url: "mailto:nikola.stanic.official@gmail.com",
+    },
+    {
+      name: "LinkedIn",
+      icon: <Linkedin className="w-4 h-4 group-hover:text-white text-[#2a324b]" />,
+      url: "https://www.linkedin.com/in/nikola-stanic-799139222/",
+    },
+    {
+      name: "GitHub",
+      icon: <Github className="w-4 h-4 group-hover:text-white text-[#2a324b]" />,
+      url: "https://github.com/codebyniki",
+    },
+    {
+      name: "Instagram",
+      icon: <InstagramIcon className="w-4 h-4 group-hover:text-white text-[#2a324b]" />,
+      url: "https://www.instagram.com/nikola.stnc",
+    },
   ];
 
   const containerVariants = {
@@ -96,17 +124,26 @@ export const ContactFormSection = (): JSX.Element => {
             </div>
             <motion.div variants={itemVariants} className="flex space-x-4 justify-center lg:justify-start">
               {socialIcons.map((item, index) => (
-                  <motion.div
+                  <a
                       key={index}
-                      className="w-10 h-10 rounded-[20px] flex items-center justify-center border border-gray-200 bg-white cursor-pointer transition-all duration-500 ease-in-out hover:scale-110 hover:border-transparent hover:bg-gradient-to-r hover:from-[#0077ff] hover:to-[#3827ff] group"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      whileTap={{ scale: 0.95 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                      transition={{ delay: 0.5 + index * 0.1 }}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={item.name}
                   >
-                    <div className="text-gray-700 group-hover:text-white">{item.icon}</div>
-                  </motion.div>
+                    <motion.div
+                        className="w-10 h-10 rounded-[20px] flex items-center justify-center border border-gray-200 bg-white cursor-pointer transition-all duration-500 ease-in-out hover:scale-110 hover:border-transparent hover:bg-gradient-to-r hover:from-[#0077ff] hover:to-[#3827ff] group"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileTap={{ scale: 0.95 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                        transition={{ delay: 0.5 + index * 0.1 }}
+                    >
+                      <div className="transition-colors duration-500 ease-in-out">
+                        {item.icon}
+                      </div>
+                    </motion.div>
+                  </a>
               ))}
             </motion.div>
           </motion.div>

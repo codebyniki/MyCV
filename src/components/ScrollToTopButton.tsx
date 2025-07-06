@@ -16,7 +16,6 @@ export const ScrollToTopButton = () => {
         return () => window.removeEventListener("scroll", toggleVisibility);
     }, []);
 
-    // Scroll to top
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Mail, Phone, MapPin } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
+import {useEffect} from "react";
 
 interface ImprintPageProps {
     onBack: () => void;
@@ -30,6 +31,13 @@ export const ImprintPage = ({ onBack }: ImprintPageProps): JSX.Element => {
             },
         },
     };
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }, []);
 
     return (
         <div className="min-h-screen bg-white pt-[100px] pb-16">
@@ -80,7 +88,7 @@ export const ImprintPage = ({ onBack }: ImprintPageProps): JSX.Element => {
                                         </div>
                                         <div>
                                             <p className="font-semibold text-[#2a324b]">Email</p>
-                                            <p className="text-[#2a324b]/70">nikola.stanic@example.com</p>
+                                            <p className="text-[#2a324b]/70">nikola.stanic.official@gmail.com</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3">
@@ -89,7 +97,7 @@ export const ImprintPage = ({ onBack }: ImprintPageProps): JSX.Element => {
                                         </div>
                                         <div>
                                             <p className="font-semibold text-[#2a324b]">Phone</p>
-                                            <p className="text-[#2a324b]/70">+43 123 456 789</p>
+                                            <p className="text-[#2a324b]/70">+43 650 691 52 84</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3">
