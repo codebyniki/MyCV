@@ -159,7 +159,7 @@ export const AboutMeSection = (): JSX.Element => {
                 <img
                     className="relative w-full h-auto object-cover rounded-lg max-h-[400px] md:max-h-[500px] xl:max-h-[600px] 2xl:max-h-[700px] shadow-2xl"
                     alt="Profile"
-                    src="/portfolio_picture.jpg"
+                    src="/portfolio-img.jpg"
                     decoding="async"
                     loading="lazy"
                 />
